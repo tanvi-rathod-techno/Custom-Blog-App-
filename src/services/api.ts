@@ -1,15 +1,24 @@
-// src/services/api.ts
 import axios from "axios";
+import { apiService } from './apiService'
 
-const apiUrl = process.env.REACT_APP_API_URL;  // Ensure API URL is defined
+interface LikeResponse {
+  success: boolean
+  likes: number
+}
+
+const apiUrl = 'http://192.168.0.110:8000/api/v2'
 
 // Function to get all blog posts
 export const getBlogPosts = async () => {
   try {
     const response = await axios.post(`${apiUrl}/home-blogs`);
-    console.log(response.data);  // Log the data to check its format
-    return response.data.response.data;  // Assuming the response contains the blog posts
+    return response.data.response.data; 
   } catch (error) {
     throw new Error("Error fetching blog posts");
   }
 };
+
+
+export const likeBlogPost = async (blogId: number): Promise<LikeResponse> => {
+  return await apiService.post<LikeResponse>('likes', { blog_id: blogId })
+}

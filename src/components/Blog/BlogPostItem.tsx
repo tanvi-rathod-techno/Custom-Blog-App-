@@ -1,5 +1,7 @@
 // components/Blog/BlogPostItem.tsx
 import React from "react";
+import LikeButton from "./LikeButton";
+import CommentBox from "./CommentBox";
 
 type BlogPost = {
   id: number;
@@ -29,8 +31,8 @@ const BlogPostItem: React.FC<{ post: BlogPost }> = ({ post }) => {
       </div>
       <p className="text-gray-700 mb-4">{post.blog_content}</p>
       <div className="flex items-center space-x-4">
-        <span>{post.total_likes} Likes</span>
-        <span>{post.total_comments} Comments</span>
+       <LikeButton initialLikes={post.total_likes} blogId={post.id} />
+        <CommentBox initialComments={post.total_comments} />
       </div>
     </div>
   );
